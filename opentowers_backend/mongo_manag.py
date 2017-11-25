@@ -40,4 +40,4 @@ def pars_triangulation(array_input):
 
 	return triangulation.triangulater(lati_g, long_g, signal_Str)
 	
->>>>>>> Stashed changes
+
