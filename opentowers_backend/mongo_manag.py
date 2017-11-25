@@ -1,6 +1,6 @@
 import pprint
 import pymongo
-import triangulation 
+import triangulation
 from pymongo import MongoClient
 
 def monge_connecten(json_input):
@@ -22,10 +22,10 @@ def monge_connecten(json_input):
 	if client.OpenTower.post.find_one({"cellid":cellid, "dataArray.2":{"$exists":True}}) is None:
 		print("Not enought towers for triangulation")
 	else:
-		print("Triangulating new position")	
+		print("Triangulating new position")
 		calc_location = pars_triangulation(client.OpenTower.post.find_one({"cellid":cellid}))
-		client.OpenTower.post.update({"cellid":cellid},{"$set":{"calc_Position":{"long":calc_location[1],"lati":calc_location[0]}}})	
-		
+		client.OpenTower.post.update({"cellid":cellid},{"$set":{"calc_Position":{"long":calc_location[1],"lati":calc_location[0]}}})
+
 
 def pars_triangulation(array_input):
 
@@ -39,5 +39,16 @@ def pars_triangulation(array_input):
 		signal_Str.append(array_input["dataArray"][i]["signal_Strength"])
 
 	return triangulation.triangulater(lati_g, long_g, signal_Str)
-	
 
+
+def gps(gps_location):
+    gps_location = gps_location.split()
+    # The 1 is not calibrated, imaginary value!!! Test in real-life :)
+    gps_location_lat = [float(gps_location[0])-1, float(gps_location[0])+1]
+    gps_location_lng = [float(gps_location[1])-1, float(gps_location[1])+1]
+    print(gps_location_lat)
+    print(gps_location_lng)
+    pprint.pprint(list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position": {"$gt": gps_location_lat[0]}}, {"calc_Position": {"$lt": gps_location_lat[1]}}]}, {"$and": [{"calc_Position": {"$gt": gps_location_lng[0]}}, {"calc_Position": {"$lt": gps_location_lng[1]}}]}]})))
+
+    # for i in range(len(client.OpenTowe.post)):
+    #     print(i)
