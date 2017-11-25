@@ -3,7 +3,6 @@ import pymongo
 from pymongo import MongoClient
 
 def monge_connecten(json_input):
-	print("a")
 	client = MongoClient('localhost',27017);
 
 	cellid = json_input["cellid"]
@@ -13,9 +12,8 @@ def monge_connecten(json_input):
 		post_id = client.OpenTower.post.insert_one(json_input)
 		post_id
 		print("New cell tower added")
-
 	else:
 		client.OpenTower.post.update({"cellid":cellid},{"$push":{ "dataArray":data_Array}})
 		pprint.pprint(client.OpenTower.post.find_one({"cellid": cellid }))
-
+		print("JSON: ", json_input)
 	print(json_input["dataArray"][0])
