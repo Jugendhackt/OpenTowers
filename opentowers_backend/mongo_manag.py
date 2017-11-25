@@ -4,10 +4,7 @@ import triangulation
 from pymongo import MongoClient
 
 def monge_connecten(json_input):
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 	client = MongoClient('localhost',27017);
 
 	cellid = json_input["cellid"]
@@ -19,11 +16,7 @@ def monge_connecten(json_input):
 		print("New cell tower added")
 	else:
 		client.OpenTower.post.update({"cellid":cellid},{"$push":{ "dataArray":data_Array}})
-<<<<<<< Updated upstream
-		pprint.pprint(client.OpenTower.post.find_one({"cellid": cellid }))
-		print("JSON: ", json_input)
-	print(json_input["dataArray"][0])
-=======
+
 		#pprint.pprint(client.OpenTower.post.find_one({"cellid": cellid }))
 
 	if client.OpenTower.post.find_one({"cellid":cellid, "dataArray.2":{"$exists":True}}) is None:
