@@ -11,7 +11,7 @@ export default class App extends React.Component {
     render() {
         return ( <View style = {
                 styles.container} >
-                <Text style={styles.heading}>OpenTowers</Text> 
+                <Text style={styles.heading}>OpenTowers</Text>
                 <MapView style = {
                 styles.map} initialRegion={{
                     latitude: 52.5027603,
@@ -24,7 +24,7 @@ export default class App extends React.Component {
                 raised
                 icon={{name: 'cached'}}
                 title='Daten auffangen...' />
-                </View >
+                </View>
         );
     }
 }
