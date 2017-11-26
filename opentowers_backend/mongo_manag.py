@@ -52,3 +52,4 @@ def gps(gps_location):
     for tower in towers:
         tower["_id"] = None
     return towers
+

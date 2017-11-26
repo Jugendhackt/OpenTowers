@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import urllib
 import mongo_manag
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 
 def check_data_correctness(cell_id,
