@@ -57,6 +57,7 @@ def post_message():
 @app.route('/api/get_message', methods=['GET'])
 def get_message():
     """Take GET-Request, hand over to mongo_manag and return nearby towers."""
+    print(request.headers.get("gps"))
     gps_cellid = json.dumps(mongo_manag.gps(request.headers.get("gps")))
     return gps_cellid
 if __name__ == '__main__':

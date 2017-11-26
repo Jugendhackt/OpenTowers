@@ -3,7 +3,7 @@ import pymongo
 import triangulation
 from pymongo import MongoClient
 
-client = MongoClient('localhost',27017);
+client = MongoClient('localhost',27017)
 
 
 def monge_connecten(json_input):
