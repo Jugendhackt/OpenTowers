@@ -52,7 +52,6 @@ def post_message():
 @app.route('/api/get_message', methods=['GET'])
 def get_message():
     gps_cellid = json.dumps(mongo_manag.gps(request.headers.get("gps")))
-    print(gps_cellid)
     return gps_cellid
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
