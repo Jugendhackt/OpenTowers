@@ -49,10 +49,16 @@ def gps(gps_location):
     gps_location_lat = [float(gps_location[0])-1, float(gps_location[0])+1]
     gps_location_lng = [float(gps_location[1])-1, float(gps_location[1])+1]
     print(gps_location_lat)
-    print(gps_location_lng)"""
-	# test = list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))
-	# test = list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))
-	# print(test[0]["Cellid"])
-    # return json.loads(json_util.dumps(list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))))
-	"""
-	return json.loads(json_util.dumps(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]})))
+    print(gps_location_lng)
+    towers = list(client.OpenTower.post.find({"$and":[{"$and":[{"calc_Position.long":{"$lte":gps_location_lng[1]}},{"calc_Position.long":{"$gte":gps_location_lng[0]}}]},{"$and":[{"calc_Position.lati":{"$lte":gps_location_lat[1]}},{"calc_Position.lati":{"$gte":gps_location_lat[0]}}]}]}))
+    print(towers)
+    for tower in towers:
+        tower["_id"] = None
+    print(towers)
+    return towers
+# test = client.OpenTower.post.find({"$and":[{"$and":[{"calc_Position.long":{"$lte":gps_location_lng[1]}},{"calc_Position.long":{"$gte":gps_location_lng[0]}}]},{"$and":[{"calc_Position.lati":{"$lte":gps_location_lat[1]}},{"calc_Position.lati":{"$gte":gps_location_lat[0]}}]}]})
+# return json.loads(json_util.dumps(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]})))
+# test = list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))
+# test = list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))
+# print(test[0]["Cellid"])
+# return json.loads(json_util.dumps(list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))))

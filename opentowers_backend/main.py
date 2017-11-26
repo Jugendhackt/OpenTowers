@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import urllib
 import mongo_manag
+import json
 
 app = Flask(__name__)
 
@@ -50,6 +51,8 @@ def post_message():
 
 @app.route('/api/get_message', methods=['GET'])
 def get_message():
-    return mongo_manag.gps(request.headers.get("gps"))
+    gps_cellid = json.dumps(mongo_manag.gps(request.headers.get("gps")))
+    print(gps_cellid)
+    return gps_cellid
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
