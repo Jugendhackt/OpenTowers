@@ -2,11 +2,13 @@ import pprint
 import pymongo
 import triangulation
 from pymongo import MongoClient
+from bson import json_util, ObjectId
+import json
+
+client = MongoClient('localhost',27017);
+
 
 def monge_connecten(json_input):
-
-	client = MongoClient('localhost',27017);
-
 	cellid = json_input["cellid"]
 	data_Array = json_input["dataArray"][0]
 
@@ -47,8 +49,10 @@ def gps(gps_location):
     gps_location_lat = [float(gps_location[0])-1, float(gps_location[0])+1]
     gps_location_lng = [float(gps_location[1])-1, float(gps_location[1])+1]
     print(gps_location_lat)
-    print(gps_location_lng)
-    pprint.pprint(list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position": {"$gt": gps_location_lat[0]}}, {"calc_Position": {"$lt": gps_location_lat[1]}}]}, {"$and": [{"calc_Position": {"$gt": gps_location_lng[0]}}, {"calc_Position": {"$lt": gps_location_lng[1]}}]}]})))
-
-    # for i in range(len(client.OpenTowe.post)):
-    #     print(i)
+    print(gps_location_lng)"""
+	# test = list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))
+	# test = list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))
+	# print(test[0]["Cellid"])
+    # return json.loads(json_util.dumps(list(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]}))))
+	"""
+	return json.loads(json_util.dumps(client.OpenTower.post.find({"$and": [{"$and": [{"calc_Position.long": {"$lte": gps_location_lng[1]}},{"calc_Position.long": {"$gte": gps_location_lng[0]}}]},{"$and": [{"calc_Position.lati": {"$lte": gps_location_lat[1]}},{"calc_Position.lati": {"$gte": gps_location_lat[0]}}]}]})))
