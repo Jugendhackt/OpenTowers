@@ -12,6 +12,7 @@ def check_data_correctness(cell_id,
                            signal_strenght,
                            phone_gps_lat,
                            phone_gps_lng):
+    """Check if the given values match some parameters."""
     # for now no cellID parameters
     # signal strenght parameters - values have to be corrected
     if signal_strenght >= -100 and signal_strenght <= 100:
@@ -33,6 +34,7 @@ def check_data_correctness(cell_id,
 
 @app.route('/api/post_message', methods=['POST'])
 def post_message():
+    """Take POST-Request and hand over to mongo_manag."""
     print("Request: ", request.json)
     cell_id = request.json["cellid"]
     signal_strenght = request.json["dataArray"][0]["signal_Strength"]
@@ -42,17 +44,19 @@ def post_message():
     print("Signal strenght: ", signal_strenght)
     print("Phone GPS Lat: ", phone_gps_lat)
     print("Phone GPS Lng: ", phone_gps_lng)
-    check_data_correctness(cell_id,
-                           signal_strenght,
-                           phone_gps_lat,
-                           phone_gps_lng)
+    correctness = check_data_correctness(cell_id,
+                                         signal_strenght,
+                                         phone_gps_lat,
+                                         phone_gps_lng)
     # execute database handler
-    mongo_manag.monge_connecten(request.json)
+    if correctness is True:
+        mongo_manag.monge_connecten(request.json)
     return "Post processed"
 
 
 @app.route('/api/get_message', methods=['GET'])
 def get_message():
+    """Take GET-Request, hand over to mongo_manag and return nearby towers."""
     gps_cellid = json.dumps(mongo_manag.gps(request.headers.get("gps")))
     return gps_cellid
 if __name__ == '__main__':

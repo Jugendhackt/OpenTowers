@@ -7,6 +7,7 @@ client = MongoClient('localhost',27017);
 
 
 def monge_connecten(json_input):
+	"""Take JSON-Input and writes to mongo-database."""
 	cellid = json_input["cellid"]
 	data_Array = json_input["dataArray"][0]
 
@@ -28,7 +29,7 @@ def monge_connecten(json_input):
 
 
 def pars_triangulation(array_input):
-
+	"""Transform from JSON to List for triangulation.py."""
 	long_g = []
 	lati_g = []
 	signal_Str = []
@@ -42,6 +43,7 @@ def pars_triangulation(array_input):
 
 
 def gps(gps_location):
+    """Search for nearby towers in mongo-database."""
     gps_location = gps_location.split()
     # The 1 is not calibrated, imaginary value!!! Test in real-life :)
     gps_location_lat = [float(gps_location[0])-1, float(gps_location[0])+1]
@@ -52,4 +54,3 @@ def gps(gps_location):
     for tower in towers:
         tower["_id"] = None
     return towers
-

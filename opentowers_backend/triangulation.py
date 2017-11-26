@@ -1,11 +1,8 @@
 from functools import reduce
 
 
-def value_grabber(json_array):
-    print(json_array)
-
-
 def triangulater(pos_lat_list, pos_lng_list, strenght_list):
+    """Triangulate tower-position"""
     strenght_all = reduce(lambda acc, val: acc + val, strenght_list)
     pos_lat_tower = 0
     for i in range(len(pos_lat_list)):
